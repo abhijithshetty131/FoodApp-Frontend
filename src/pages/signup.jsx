@@ -1,7 +1,8 @@
 const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
-    const backendApiBaseUrl = "http://localhost:8000/";
+    const backendApiBaseUrl =
+      process?.env?.ENDPOINT || "http://localhost:8000/";
     const data = await fetch(`${backendApiBaseUrl}user/signup`, {
       body: JSON.stringify({
         fullName: "Abhijith",
