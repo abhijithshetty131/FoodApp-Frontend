@@ -1,14 +1,22 @@
+import { useState } from "react";
+import { baseUrl } from "../utils/constants";
+
 const Signup = () => {
+  const [userDetails, setUserDetails] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
+
+  const handleUserChange = (e) => {
+    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    const backendApiBaseUrl =
-      process?.env?.ENDPOINT || "http://localhost:8000/";
-    const data = await fetch(`${backendApiBaseUrl}user/signup`, {
-      body: JSON.stringify({
-        fullName: "Abhijith",
-        email: "abhiiiiiii@gmail.com",
-        password: "1234",
-      }),
+
+    const data = await fetch(`${baseUrl}user/signup`, {
+      body: JSON.stringify(userDetails),
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -28,17 +36,32 @@ const Signup = () => {
           <label htmlFor="fullname">
             <b>Full name</b>
           </label>
-          <input type="text" placeholder="Enter Fullname" name="fullname" />
+          <input
+            type="text"
+            placeholder="Enter Fullname"
+            name="fullName"
+            onChange={handleUserChange}
+          />
 
           <label htmlFor="email">
             <b>Email</b>
           </label>
-          <input type="text" placeholder="Enter Email" name="email" />
+          <input
+            type="text"
+            placeholder="Enter Email"
+            name="email"
+            onChange={handleUserChange}
+          />
 
           <label htmlFor="psw">
             <b>Password</b>
           </label>
-          <input type="password" placeholder="Enter Password" name="psw" />
+          <input
+            type="password"
+            placeholder="Enter Password"
+            name="password"
+            onChange={handleUserChange}
+          />
 
           <label htmlFor="psw-repeat">
             <b>Repeat Password</b>
